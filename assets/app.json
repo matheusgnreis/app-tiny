@@ -1,0 +1,70 @@
+{
+  "app_id": 1455,
+  "state": "active",
+  "title": "Tiny for E-Com Plus",
+  "slug": "tiny",
+  "version": "0.0.1",
+  "type": "external",
+  "authentication": true,
+  "auth_callback_uri": "https://tiny.ecomplus.biz/ecom/auth-callback",
+  "auth_scope": {
+    "orders": [
+      "GET",
+      "POST",
+      "PATCH",
+      "DELETE"
+    ],
+    "orders/hidden_metafields": [
+      "GET",
+      "POST",
+      "PATCH"
+    ],
+    "orders/metafields": [
+      "GET",
+      "POST",
+      "PATCH"
+    ],
+    "orders/payments_history": [
+      "GET",
+      "POST",
+      "PATCH"
+    ],
+    "orders/shipping_lines": [
+      "GET",
+      "POST",
+      "PATCH"
+    ],
+    "orders/transactions": [
+      "GET",
+      "POST",
+      "PATCH"
+    ],
+    "procedures": [
+      "GET",
+      "POST",
+      "PATCH",
+      "DELETE"
+    ],
+    "products": [
+      "GET",
+      "POST",
+      "PATCH",
+      "DELETE"
+    ],
+    "products/price": [
+      "GET",
+      "POST",
+      "PATCH"
+    ],
+    "products/quantity": [
+      "GET",
+      "POST",
+      "PATCH"
+    ],
+    "products/variations": [
+      "GET",
+      "POST",
+      "PATCH"
+    ]
+  }
+}
