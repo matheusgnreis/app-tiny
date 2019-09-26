@@ -1,46 +1,30 @@
-# express-app-boilerplate
+# app-tiny
 
-Boilerplate for E-Com Plus apps with Node.js and Express web framework
+[![CodeFactor](https://www.codefactor.io/repository/github/ecomclub/app-tiny/badge)](https://www.codefactor.io/repository/github/ecomclub/app-tiny)
 
-[Changelog](https://github.com/ecomclub/express-app-boilerplate/blob/master/CHANGELOG.md)
+E-Com Plus app to integrate Tiny ERP
 
-## Getting started
+#####  Environment variables
 
-Setup the source of your new E-Com Plus app with this boilerplate
-by running the following commands (bash):
+Env | Val
+---------|--------
+ECOMCLIENT_NOTIMEOUT  | `true`
+ECOM_AUTH_DB  | `~/app/db/tiny.sqlite`
+LOGGER_OUTPUT  | `~/app/log/logger.out`
+LOGGER_ERRORS  | `~/app/log/logger.err`
+LOGGER_FATAL_ERRORS | `~/app/log/_stderr`
+PORT | `3000`
+DB_NAME  | `tiny`
+DB_HOST  | `localhost`
+DB_USER  | `who`
+DB_PASS | `secret`
 
-```bash
-mkdir my-app
-cd my-app
-git clone https://github.com/ecomclub/express-app-boilerplate.git
-cp -r express-app-boilerplate/app/* ./
-rm -rf express-app-boilerplate
-```
+## Production server
 
-You should replace `my-app` with the name of your
-application (on kebab-case).
+Published at https://tiny.ecomplus.biz
 
-## Next steps
+### Continuous deployment
 
-- Configure custom
-[Store API procedures](https://developers.e-com.plus/docs/api/#/store/procedures/)
-to specify the webhooks your app should receive
-at [`lib/store-api/procedures.js`](https://github.com/ecomclub/express-app-boilerplate/blob/master/app/lib/store-api/procedures.js);
-
-- If your app has custom daemon processes,
-you may run them from
-[`bin/local.js`](https://github.com/ecomclub/express-app-boilerplate/blob/master/app/bin/local.js);
-
-- Edit
-[`routes/ecom/webhooks.js`](https://github.com/ecomclub/express-app-boilerplate/blob/master/app/routes/ecom/webhook.js)
-to handle received webhooks from Store API properly;
-
-- Add custom web app routes by creating new files to
-[`routes`](https://github.com/ecomclub/express-app-boilerplate/tree/master/app/routes)
-folder and adding them to Express router at
-[`bin/web.js`](https://github.com/ecomclub/express-app-boilerplate/blob/master/app/bin/web.js);
-
-- You may also create new JS files at
-[`lib`](https://github.com/ecomclub/express-app-boilerplate/tree/master/app/lib)
-folder to add new methods or handlers to be included
-on your app source;
+When app version is **production ready**,
+[create a new release](https://github.com/ecomclub/app-tiny/releases)
+to run automatic deploy from `master` branch.
