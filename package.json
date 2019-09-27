@@ -5,7 +5,8 @@
   "description": "Tiny for E-Com Plus",
   "main": "main.js",
   "scripts": {
-    "start": "ECOMCLIENT_NOTIMEOUT=true DB_NAME='tiny' ECOM_AUTH_DB=/var/dbs/tiny.sqlite LOGGER_OUTPUT=/var/log/nodejs/tiny.out LOGGER_ERRORS=/var/log/nodejs/tiny.error nodemon main.js",
+    "start": "node main.js",
+    "local": "ECOMCLIENT_NOTIMEOUT=true DB_NAME='tiny' ECOM_AUTH_DB=/var/dbs/tiny.sqlite LOGGER_OUTPUT=/var/log/nodejs/tiny.out LOGGER_ERRORS=/var/log/nodejs/tiny.error nodemon main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
