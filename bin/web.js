@@ -53,10 +53,7 @@ ecomAuth.then(appSdk => {
     router.post(filename, require(`${routes}${filename}`)(appSdk))
   })
 
-  ;[ 'orders', 'products' ].forEach(endpoint => {
-    const filename = `/ecom/${endpoint}`
-    router.post(`${filename}.json`, require(`${routes}${filename}`)(appSdk))
-  })
+  app.use('/ecom/products', require(`${routes}/ecom/_products`)(appSdk, router))
 
   // add router and start web server
   app.use(router)
