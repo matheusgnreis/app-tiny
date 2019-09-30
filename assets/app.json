@@ -133,7 +133,7 @@
             "description": "Configuralçies de sincronizações do Tiny",
             "required": [
               "quantiy",
-              "financial_status",
+              "financial_status"
             ],
             "properties": {
               "quantiy": {
