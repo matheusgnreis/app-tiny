@@ -53,7 +53,14 @@ ecomAuth.then(appSdk => {
     router.post(filename, require(`${routes}${filename}`)(appSdk))
   })
 
-  app.use('/ecom/products', require(`${routes}/ecom/_products`)(appSdk, router))
+  router.get('/ecom/products/:id', require('../routes/ecom/fetch-products')(appSdk))
+  router.post('/ecom/products', require('../routes/ecom/post-products')(appSdk))
+  router.patch('/ecom/products/:id', require('../routes/ecom/patch-products')(appSdk))
+  router.delete('/ecom/products/:id', require('../routes/ecom/delete-products')(appSdk))
+
+  router.get('/ecom/unwatched', require('../routes/ecom/fetch-unwatcheds')(appSdk))
+  router.post('/ecom/unwatched', require('../routes/ecom/post-unwatcheds')(appSdk))
+  router.delete('/ecom/unwatched/:id', require('../routes/ecom/delete-unwatcheds')(appSdk))
 
   // add router and start web server
   app.use(router)
