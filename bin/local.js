@@ -33,7 +33,7 @@ ecomAuth.then(appSdk => {
 
   // sync
   require('./../lib/ecom-stock')({ appSdk, db })
-  require('./../lib/ecom-to-bling')({ appSdk, db })
+  require('./../lib/ecom-to-tiny')({ appSdk, db })
 })
 
 ecomAuth.catch(err => {
