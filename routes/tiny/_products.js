@@ -1,8 +1,10 @@
 const Tiny = require('./../../lib/tiny/client')
 const EcomSchema = require('./../../lib/schemas/tiny-to-ecomplus')
 const getConfig = require(process.cwd() + '/lib/store-api/get-config')
+const { insertProduct } = require('../../lib/database')
 
-const POST_PRODUCTS = appSdk => {
+module.exports = appSdk => {
+  console.log(appSdk)
   return (req, res) => {
     const storeId = parseInt(req.get('x-store-id'), 10)
     const body = req.body
@@ -32,19 +34,20 @@ const POST_PRODUCTS = appSdk => {
               return appSdk.apiRequest(storeId, resource, method, schema)
 
                 .then((resp) => {
-                  res.send(resp.response.data)
-
+                  const { _id } = resp.response.data
+                  // insere produto no banco
+                  insertProduct(schema.sku, storeId, _id, body[0], schema.name, schema.price, schema.quantity, 'tiny')
                   // variação?
                   if (produto.classe_produto === 'V') {
-                    const { _id } = resp.response.data
                     const setVariations = require('../../lib/variations-to-ecom')(tiny, appSdk, storeId)
-                    setVariations(produto.variacoes, _id)
+                    setVariations(produto.variacoes, _id, schema.sku) // Ecomplus
+                    // insere variação no banco
                   }
+                  res.send(resp.response.data)
                 })
 
                 .catch(e => console.log(JSON.stringify(e.response.data)))
             } else {
-              console.log(JSON.stringify(retorno))
               res.status(404).send({
                 'status': 404,
                 'message': 'Not found',
@@ -58,5 +61,3 @@ const POST_PRODUCTS = appSdk => {
       })
   }
 }
-
-module.exports = (appSdk, router) => router.post('', POST_PRODUCTS(appSdk))
