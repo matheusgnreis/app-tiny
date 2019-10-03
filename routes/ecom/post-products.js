@@ -1,7 +1,6 @@
 const { store } = require('@ecomplus/client')
 const productToTiny = require('./../../lib/ecomplus/products-to-tiny')
 const syncTransaction = require('./../../lib/sync-transactions')
-const Tiny = require('./../../lib/tiny/client')
 const getConfig = require(process.cwd() + '/lib/store-api/get-config')
 
 module.exports = appSdk => {
@@ -12,7 +11,6 @@ module.exports = appSdk => {
     getConfig({ appSdk, storeId }, true)
 
       .then(configObj => {
-        const tiny = new Tiny(configObj.access_token)
         const products = []
         const promises = []
 
@@ -25,7 +23,7 @@ module.exports = appSdk => {
         }
 
         Promise.all(promises).then(async () => {
-          const transaction = await productToTiny(tiny, storeId, products, configObj)
+          const transaction = await productToTiny(storeId, products, configObj)
           syncTransaction(configObj, transaction)
         })
           .finally(() => {
