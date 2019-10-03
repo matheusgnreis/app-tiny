@@ -4,7 +4,6 @@ const getConfig = require(process.cwd() + '/lib/store-api/get-config')
 const { insertProduct } = require('../../lib/database')
 
 module.exports = appSdk => {
-  console.log(appSdk)
   return (req, res) => {
     const storeId = parseInt(req.get('x-store-id'), 10)
     const body = req.body
