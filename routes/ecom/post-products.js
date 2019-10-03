@@ -25,7 +25,7 @@ module.exports = appSdk => {
         }
 
         Promise.all(promises).then(async () => {
-          const transaction = await productToTiny(tiny, storeId, products)
+          const transaction = await productToTiny(tiny, storeId, products, configObj)
           syncTransaction(configObj, transaction)
         })
           .finally(() => {
