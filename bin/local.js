@@ -2,10 +2,6 @@
 
 'use strict'
 
-// sqlite
-const sqlite = require('sqlite3').verbose()
-const db = new sqlite.Database(process.env.ECOM_AUTH_DB)
-
 // log on files
 const logger = require('console-files')
 // handle app authentication to Store API
@@ -30,9 +26,17 @@ ecomAuth.then(appSdk => {
       })
     }
   }
-  // sync
-  require('./../lib/ecom-stock')({ appSdk, db })
-  require('./../lib/ecom-to-tiny')({ appSdk, db })
+
+  // produtos
+  require('../lib/ecomplus/products/products-to-db')(appSdk)
+  require('../lib/ecomplus/products/db-to-tiny')(appSdk)
+
+  // pedidos
+  require('../lib/ecomplus/orders/orders-to-db')(appSdk)
+  require('../lib/ecomplus/orders/db-to-tiny')(appSdk)
+
+  // estoque
+  require('./../lib/ecom-stock')(appSdk)
 })
 
 ecomAuth.catch(err => {
