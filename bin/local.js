@@ -28,12 +28,12 @@ ecomAuth.then(appSdk => {
   }
 
   // produtos
-  require('../lib/ecomplus/products/products-to-db')(appSdk)
-  require('../lib/ecomplus/products/db-to-tiny')(appSdk)
-
-  // pedidos
-  require('../lib/ecomplus/orders/orders-to-db')(appSdk)
-  require('../lib/ecomplus/orders/db-to-tiny')(appSdk)
+  //require('../lib/ecomplus/products/products-to-db')(appSdk)
+  //require('../lib/ecomplus/products/db-to-tiny')(appSdk)
+//
+  //// pedidos
+  //require('../lib/ecomplus/orders/orders-to-db')(appSdk)
+  //require('../lib/ecomplus/orders/db-to-tiny')(appSdk)
 
   // estoque
   require('./../lib/ecom-stock')(appSdk)

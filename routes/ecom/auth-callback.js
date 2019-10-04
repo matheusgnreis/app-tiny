@@ -5,6 +5,7 @@ const logger = require('console-files')
 
 module.exports = appSdk => {
   return (req, res) => {
+    console.log(JSON.stringify(req.body))
     const { storeId } = req
     // handle callback with E-Com Plus app SDK
     // https://github.com/ecomclub/ecomplus-app-sdk
