@@ -29,3 +29,13 @@ Por padrão sincronizações automáticas estão desabilitadas. Após a instala�
 
 > Tiny para E-Com Plus
 
+ Método |Resource | Descrição | API Url | Body
+--------|---------|-----------|---------|-----
+**POST**| Products| Envia produto do Tiny para E-Com Plus| `/tiny/products` | `['511134']`
+
+Obs:
+  - As requisições na API devem ser acompanhadas dos parâmetros X-Store-Id e X-Real-Ip no headers.
+  - As sicronizações ocorrem em segundo plano.
+
+API Uri: `https://app-tiny.herokuapp.com/`
+
