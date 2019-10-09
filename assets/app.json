@@ -29,6 +29,11 @@
       "POST",
       "PATCH"
     ],
+    "orders/fulfillments": [
+      "GET",
+      "POST",
+      "PATCH"
+    ],
     "orders/shipping_lines": [
       "GET",
       "POST",
