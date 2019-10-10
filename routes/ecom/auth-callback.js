@@ -8,6 +8,7 @@ module.exports = appSdk => {
     const { storeId } = req
     // handle callback with E-Com Plus app SDK
     // https://github.com/ecomclub/ecomplus-app-sdk
+    logger.log(JSON.stringify(req.body))
     appSdk.handleCallback(storeId, req.body)
 
       .then(() => {
