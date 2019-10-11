@@ -89,6 +89,10 @@ module.exports = appSdk => {
                     }
                   })
               })
+
+              .catch(e => {
+                res.status(500).send(e.message)
+              })
           })
       })
   }
