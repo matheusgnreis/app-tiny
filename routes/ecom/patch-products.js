@@ -71,6 +71,8 @@ module.exports = appSdk => {
                           const { status_processamento } = retorno
 
                           if (parseInt(status_processamento) === 3) {
+                            const qty = data.quantity || 0
+                            tiny.updateStock(id, qty)
                             updateProduct(storeId, row[0].tiny_id, payload._id, payload.sku, payload.price, payload.name, payload.quantity)
                               .then(() => {
                                 res.status(204).end()
