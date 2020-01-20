@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "local": "ECOMCLIENT_NOTIMEOUT=true DB_NAME='tiny' ECOM_AUTH_DB=/var/dbs/tiny.sqlite LOGGER_OUTPUT=/var/log/nodejs/tiny.out LOGGER_ERRORS=/var/log/nodejs/tiny.error nodemon main.js",
+    "local": "ECOMCLIENT_NOTIMEOUT=true DB_NAME=tiny ECOM_AUTH_DB=/var/dbs/tiny.sqlite LOGGER_OUTPUT=/var/log/nodejs/tiny.out LOGGER_ERRORS=/var/log/nodejs/tiny.error LOGGER_FATAL_ERRORS=/var/log/nodejs/_stderr nodemon main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
