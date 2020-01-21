@@ -65,13 +65,13 @@ module.exports = appSdk => {
                         if (status === 'Erro') {
                           if (!isNaN(parseInt(codigo_erro)) && parseInt(codigo_erro) === 6) {
                             // to many requests
-                            console.log('--> API limit reached, sending the product %s in 1m', sku)
+                            logger.log('--> API limit reached, sending the product %s in 1m', sku)
                             setTimeout(() => {
                               // try again
                               sync(body)
                             }, 60000)
                           } else {
-                            console.log('Product %i not found with this sku', sku)
+                            logger.log('Product %i not found with this sku', sku)
                           }
                         }
                       }
@@ -79,13 +79,13 @@ module.exports = appSdk => {
                 } else {
                   if (!isNaN(parseInt(codigo_erro)) && parseInt(codigo_erro) === 6) {
                     // to many requests
-                    console.log('--> API limit reached, sending the product %s in 1m', sku)
+                    logger.log('--> API limit reached, sending the product %s in 1m', sku)
                     setTimeout(() => {
                       // try again
                       sync(body)
                     }, 60000)
                   } else {
-                    console.log('Product %i not found with this sku', sku)
+                    logger.log('Product %i not found with this sku', sku)
                   }
                 }
               })
