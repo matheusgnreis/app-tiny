@@ -36,8 +36,8 @@ ecomAuth.then(appSdk => {
   require('../lib/ecomplus/orders/db-to-tiny')(appSdk)
 
   // estoque
-  require('./../lib/ecom-stock')(appSdk)
-  require('./../lib/tiny-orders')(appSdk)
+  //require('./../lib/ecom-stock')(appSdk)
+  //require('./../lib/tiny-orders')(appSdk)
 })
 
 ecomAuth.catch(err => {
