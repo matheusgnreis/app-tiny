@@ -6,11 +6,15 @@ const logger = require('console-files')
 
 module.exports = appSdk => {
   return (req, res) => {
-    const storeId = parseInt(req.get('x-store-id'), 10)
+    const storeId = parseInt(req.get('x-store-id'), 10) || parseInt(req.query.storeId, 10)
     const body = req.body
 
+    if (!storeId || storeId < 100) {
+      return res.status(401).send('storeId invalid')
+    }
+
     if (!Array.isArray(body) || body === null || !body.length) {
-      return res.status(406).send('Invalid body')
+      return res.status(406).send('Body must be a array of sku`s ["sku-1", "sku-2"]')
     }
 
     getConfig({ appSdk, storeId }, true)
@@ -89,7 +93,12 @@ module.exports = appSdk => {
                   }
                 }
               })
-              .catch(e => logger.log('TINY_SYNC_PRODUCTS_ERR', e))
+              .catch(e => {
+                if (e.response && e.response.data) {
+                  logger.log('TINY_SYNC_PRODUCTS_ERR', JSON.stringify(e.response.data))
+                }
+                logger.log('TINY_SYNC_PRODUCTS_ERR', e)
+              })
           }
         }
 
