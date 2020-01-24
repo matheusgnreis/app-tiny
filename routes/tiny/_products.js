@@ -20,90 +20,101 @@ module.exports = appSdk => {
     getConfig({ appSdk, storeId }, true)
 
       .then(objConfig => {
-        const { access_token } = objConfig
-        const tiny = new Tiny(access_token)
+        if (objConfig.access_token) {
+          let current = 0
+          const tiny = new Tiny(objConfig.access_token)
 
-        let current = 0
-        const sync = (skus) => {
-          const sku = skus[current]
-          if (sku) {
-            tiny.findProduct(sku)
-              .then(async result => {
-                let { retorno } = result.data
-                let { status, status_processamento, produtos, codigo_erro } = retorno
-                let { produto } = produtos[0]
+          const nextProduct = () => {
+            current++
+            sync()
+          }
 
-                if (parseInt(status_processamento) === 3) {
-                  return tiny.fetchProducts(produto.id)
+          const sync = () => {
+            const sku = body[current]
+            if (sku) {
+              tiny
+                .findProduct(sku)
 
-                    .then(async result => {
-                      let { retorno } = result.data
-                      let { status, status_processamento, produto, codigo_erro } = retorno
+                .then(async result => {
+                  let { retorno } = result.data
 
-                      if (parseInt(status_processamento) === 3) {
-                        let schema
-                        try {
-                          schema = await EcomSchema(produto, tiny)
-                        } catch (error) {
-                          res.status(400).send(error.message)
-                        }
+                  if (parseInt(retorno.status_processamento) === 3) {
+                    let { produtos } = retorno
+                    let { produto } = produtos[0]
+                    return tiny
+                      .fetchProducts(produto.id)
+                      .then(async result => {
+                        let { retorno } = result.data
+                        let { produto } = retorno
 
-                        const resource = '/products.json'
-                        const method = 'POST'
-                        return appSdk.apiRequest(storeId, resource, method, schema)
+                        if (parseInt(retorno.status_processamento) === 3) {
+                          let schema
+                          try {
+                            schema = await EcomSchema(produto, tiny)
+                          } catch (error) {
+                            res.status(400).send(error.message)
+                          }
 
-                          .then((resp) => {
-                            const { _id } = resp.response.data
-                            // insere produto no banco
-                            insertProduct(schema.sku, storeId, _id, body[0], schema.name, schema.price, schema.quantity, 'tiny')
-                            // variação?
-                            if (produto.classe_produto === 'V') {
-                              const setVariations = require('../../lib/variations-to-ecom')(tiny, appSdk, storeId)
-                              setVariations(produto.variacoes, _id, schema.sku) // Ecomplus
-                              // insere variação no banco
+                          const resource = '/products.json'
+                          const method = 'POST'
+                          return appSdk
+                            .apiRequest(storeId, resource, method, schema)
+
+                            .then((resp) => {
+                              const { _id } = resp.response.data
+                              // insere produto no banco
+                              insertProduct(schema.sku, storeId, _id, body[0], schema.name, schema.price, schema.quantity, 'tiny')
+                              // variação?
+                              if (produto.classe_produto === 'V') {
+                                const setVariations = require('../../lib/variations-to-ecom')(tiny, appSdk, storeId)
+                                setVariations(produto.variacoes, _id, schema.sku) // Ecomplus
+                                // insere variação no banco
+                              }
+                              nextProduct()
+                            })
+                        } else {
+                          if (retorno.status === 'Erro') {
+                            if (!isNaN(parseInt(retorno.codigo_erro)) && parseInt(retorno.codigo_erro) === 6) {
+                              // to many requests
+                              logger.log('--> API limit reached, sending the product %s in 1m', sku)
+                              setTimeout(() => {
+                                // try again
+                                sync()
+                              }, 60000)
+                            } else {
+                              logger.log(`Produto ${sku} entrando mas id não bate no tiny`)
+                              nextProduct()
                             }
-                            current++
-                            sync(skus)
-                          })
-                      } else {
-                        if (status === 'Erro') {
-                          if (!isNaN(parseInt(codigo_erro)) && parseInt(codigo_erro) === 6) {
-                            // to many requests
-                            logger.log('--> API limit reached, sending the product %s in 1m', sku)
-                            setTimeout(() => {
-                              // try again
-                              sync(body)
-                            }, 60000)
-                          } else {
-                            logger.log('Product %i not found with this sku', sku)
                           }
                         }
-                      }
-                    })
-                } else {
-                  if (!isNaN(parseInt(codigo_erro)) && parseInt(codigo_erro) === 6) {
-                    // to many requests
-                    logger.log('--> API limit reached, sending the product %s in 1m', sku)
-                    setTimeout(() => {
-                      // try again
-                      sync(body)
-                    }, 60000)
+                      })
+                  } else if (parseInt(retorno.status_processamento) === 2) {
+                    // produto no found for sku
+                    logger.log(`Produto ${sku} não encontrado no tiny com esse sku`)
+                    nextProduct()
                   } else {
-                    logger.log('Product %i not found with this sku', sku)
-                  }
-                }
-              })
-              .catch(e => {
-                if (e.response && e.response.data) {
-                  logger.log('TINY_SYNC_PRODUCTS_ERR', JSON.stringify(e.response.data))
-                }
-                logger.log('TINY_SYNC_PRODUCTS_ERR', e)
-              })
-          }
-        }
 
-        sync(body)
-        res.status(200).end()
+                  }
+                })
+
+                .catch(e => {
+                  if (e.response && e.response.data) {
+                    logger.log('TINY_SYNC_PRODUCTS_ERR', JSON.stringify(e.response.data))
+                  }
+                  logger.log('TINY_SYNC_PRODUCTS_ERR', e)
+                })
+            }
+          }
+
+          sync()
+          res.status(200).end()
+        } else {
+          res.status(401)
+          res.send({
+            error: 'Unauthorized',
+            mensage: 'Tiny access_token token unset at application config'
+          })
+        }
       })
   }
 }
