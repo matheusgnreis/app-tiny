@@ -1,5 +1,4 @@
 'use strict'
-process.env.ECOMCLIENT_NOTIMEOUT = true
 // debug errors in files
 // require logger module first of any code
 require('console-files')
