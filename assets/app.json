@@ -39,51 +39,37 @@
         "properties": {
           "ecom": {
             "type": "object",
-            "title": "Configurações E-Com Plus",
+            "title": "Sincronização E-Com Plus",
             "description": "Configuração de sincronizações da E-Com Plus",
             "required": ["products", "orders"],
             "properties": {
               "products": {
-                "type": "object",
-                "title": "Sincronização de produtos",
-                "description": "Defina como os produtos serão mantidos entre as plataformas",
-                "required": ["products", "quantity"],
-                "properties": {
-                  "products": {
-                    "type": "boolean",
-                    "title": "Produtos E-Com Plus",
-                    "description": "Enviar todos os produtos da E-Com Plus pra o Tiny",
-                    "default": false
-                  },
-                  "quantity": {
-                    "type": "boolean",
-                    "title": "Estoque E-Com Plus",
-                    "description": "Enviar estoque de produtos da E-Com Plus pra o Tiny",
-                    "default": false
-                  }
-                }
+                "type": "boolean",
+                "title": "Produtos E-Com Plus",
+                "description": "Enviar todos os produtos existentes na E-Com Plus e novos para o Tiny",
+                "default": false
               },
               "orders": {
                 "type": "boolean",
                 "title": "Pedidos E-Com Plus",
-                "description": "Enviar todos os pedidos da E-Com Plus pra o Tiny",
+                "description": "Enviar todos os pedidos existentes na E-Com Plus e novos para o Tiny",
                 "default": false
               }
             }
           },
           "tiny": {
             "type": "object",
-            "title": "Configurações Tiny",
-            "description": "Configuralçies de sincronizações do Tiny",
-            "required": ["quantiy", "financial_status"],
+            "title": "Sincronizações Tiny",
+            "description": "Configurações de sincronizações do Tiny",
+            "required": ["stock", "orderStatus"],
             "properties": {
-              "quantiy": {
+              "stock": {
                 "type": "boolean",
-                "title": "Estoque Tiny",
+                "title": "Estoque E-Com Plus",
                 "description": "Atualizar estoque de produtos na E-Com Plus sempre que for alterado no Tiny",
                 "default": false
               },
-              "financial_status": {
+              "orderStatus": {
                 "type": "boolean",
                 "title": "Situação de Pedidos Tiny",
                 "description": "Atualizar situação do pedido na E-Com Plus sempre que for alterado no Tiny",
