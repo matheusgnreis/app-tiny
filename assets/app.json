@@ -3,7 +3,7 @@
   "state": "active",
   "title": "Tiny for E-Com Plus",
   "slug": "tiny",
-  "version": "0.0.1",
+  "version": "1.0.4",
   "type": "external",
   "authentication": true,
   "auth_callback_uri": "https://tiny.ecomplus.biz/ecom/auth-callback",
