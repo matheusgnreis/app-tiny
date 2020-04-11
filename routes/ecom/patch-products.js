@@ -47,15 +47,13 @@ module.exports = appSdk => {
 
             return fetchProduct(data.sku, storeId)
               .then(row => {
-
                 tiny.fetchProducts(row[0].tiny_id)
 
                   .then(result => {
-
                     const { retorno } = result.data
-                    const { status_processamento, produto } = retorno
+                    const { produto } = retorno
 
-                    if (parseInt(status_processamento) === 3) {
+                    if (parseInt(retorno.status_processamento) === 3) {
                       const schema = TinySchema(payload, row[0].id)
 
                       //
@@ -68,9 +66,7 @@ module.exports = appSdk => {
 
                         .then(resp => {
                           const { retorno } = result.data
-                          const { status_processamento } = retorno
-
-                          if (parseInt(status_processamento) === 3) {
+                          if (parseInt(retorno.status_processamento) === 3) {
                             const qty = body.quantity || 0
                             tiny.updateStock(row[0].tiny_id, qty).then(r => console.log(JSON.stringify(r)))
                             updateProduct(storeId, row[0].tiny_id, payload._id, payload.sku, payload.price, payload.name, payload.quantity)
