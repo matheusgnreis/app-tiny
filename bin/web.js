@@ -5,8 +5,8 @@
 // log to files
 const logger = require('console-files')
 // handle app authentication to Store API
-// https://github.com/ecomclub/ecomplus-app-sdk
-const { ecomAuth, ecomServerIps } = require('ecomplus-app-sdk')
+// https://github.com/ecomplus/application-sdk
+const { ecomAuth, ecomServerIps } = require('@ecomplus/application-sdk')
 
 // web server with Express
 const express = require('express')
@@ -14,6 +14,11 @@ const bodyParser = require('body-parser')
 const app = express()
 const router = express.Router()
 const port = process.env.PORT || 3000
+
+const ecomClient = require('@ecomplus/client')
+const getAppConfig = require('./../lib/store-api/get-config')
+const mysql = require('./../lib/database')
+const tinyClient = require('./../lib/tiny/api-client')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -47,29 +52,28 @@ ecomAuth.then(appSdk => {
   const routes = './../routes'
   router.get('/', require(`${routes}/`)())
 
-  // base routes for E-Com Plus Store API
-  ;[ 'auth-callback', 'webhook' ].forEach(endpoint => {
-    const filename = `/ecom/${endpoint}`
-    router.post(filename, require(`${routes}${filename}`)(appSdk))
-  })
+    // base routes for E-Com Plus Store API
+    ;['auth-callback'].forEach(endpoint => {
+      const filename = `/ecom/${endpoint}`
+      router.post(filename, require(`${routes}${filename}`)(appSdk))
+    })
 
-  // products
-  router.get('/ecom/products/:id', require('../routes/ecom/fetch-products')(appSdk))
-  router.post('/ecom/products', require('../routes/ecom/post-products')(appSdk))
-  router.patch('/ecom/products/:id', require('../routes/ecom/patch-products')(appSdk))
-  router.delete('/ecom/products/:id', require('../routes/ecom/delete-products')(appSdk))
+  /**
+   rotas do app
+    /produtos/ecom post
+    /produtos/tiny post/get
+    /produtos/tiny/:produtoId get/delete
+    /pedidos/tiny post
+   */
+  const appParams = { appSdk, ecomClient, getAppConfig, mysql, logger, tinyClient }
+  router.post('/api/products/ecom', require('../routes/api/products/ecom/create')(appParams))
+  router.post('/api/products/tiny', require('./../routes/api/products/tiny/create')(appParams))
+  router.get('/api/products', require('./../routes/api/products/find-products')(appParams))
+  router.get('/api/products/:id', require('./../routes/api/products/find-products')(appParams))
+  router.delete('/api/products/:id', require('./../routes/api/products/delete-products')(appParams))
+  router.post('/api/orders/tiny', require('./../routes/api/orders/create')(appParams))
 
-  // products-unwatched
-  router.get('/ecom/unwatched', require('../routes/ecom/fetch-unwatcheds')(appSdk))
-  router.post('/ecom/unwatched', require('../routes/ecom/post-unwatcheds')(appSdk))
-  router.delete('/ecom/unwatched/:id', require('../routes/ecom/delete-unwatcheds')(appSdk))
-
-  // orders
-  router.post('/ecom/orders', require('../routes/ecom/orders')(appSdk))
-
-  // tiny
-  router.post('/tiny/products', require('../routes/tiny/_products')(appSdk))
-
+  router.post('/ecom/webhook', require('./../routes/ecom/webhook')(appParams))
   // add router and start web server
   app.use(router)
   app.listen(port)
