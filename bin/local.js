@@ -5,8 +5,14 @@
 // log on files
 const logger = require('console-files')
 // handle app authentication to Store API
-// https://github.com/ecomclub/ecomplus-app-sdk
-const { ecomAuth } = require('ecomplus-app-sdk')
+// https://github.com/ecomplus/application-sdk
+const { ecomAuth } = require('@ecomplus/application-sdk')
+
+const ecomClient = require('@ecomplus/client')
+const mysql = require('./../lib/database')
+const getStores = require('./../lib/get-stores')
+const MapStores = require('./../lib/map-stores')
+const tinyClient = require('./../lib/tiny/api-client')
 
 logger.log('--> Start running daemon processes')
 
@@ -27,19 +33,17 @@ ecomAuth.then(appSdk => {
     }
   }
 
-  // produtos
-  require('../lib/ecomplus/products/products-to-db')(appSdk)
-  require('../lib/ecomplus/products/db-to-tiny')(appSdk)
-
-  // pedidos
-  require('../lib/ecomplus/orders/orders-to-db')(appSdk)
-  require('../lib/ecomplus/orders/db-to-tiny')(appSdk)
-
-  // estoque
-  require('../lib/stock-control')(appSdk)
+  const params = { logger, ecomClient, mysql, getStores, MapStores, appSdk, tinyClient }
+  require('./../lib/ecomplus/save-products-db')(params)
+  require('./../lib/ecomplus/sync-products-with-tiny')(params)
 
   // orders
-  require('../lib/orders-control')(appSdk)
+  require('./../lib/ecomplus/save-orders-db')(params)
+  require('./../lib/ecomplus/sync-orders-with-tiny')(params)
+
+  // stock manager
+  require('./../lib/tiny/stock-manager')(params)
+  require('./../lib/tiny/orders-manager')(params)
 })
 
 ecomAuth.catch(err => {
