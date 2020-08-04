@@ -23,7 +23,7 @@ module.exports = ({ appSdk, logger, mysql, tinyClient }) => {
 
       .then(async configObj => {
         /* Do the stuff */
-        if (!configObj.enabled_sync_others_status) {
+        if (configObj.enabled_sync_others_status) {
           let promise
           const url = `/orders/${(trigger.inserted_id || trigger.resource_id)}.json`
           const orderBody = await appSdk.apiRequest(storeId, url).then(({ response }) => response.data)
