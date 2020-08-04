@@ -13,13 +13,12 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const router = express.Router()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3003
 
 const ecomClient = require('@ecomplus/client')
 const getAppConfig = require('./../lib/store-api/get-config')
 const mysql = require('./../lib/database')
 const tinyClient = require('./../lib/tiny/api-client')
-const jwt = require('jsonwebtoken')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -53,11 +52,11 @@ ecomAuth.then(appSdk => {
   const routes = './../routes'
   router.get('/', require(`${routes}/`)())
 
-    // base routes for E-Com Plus Store API
-    ;['auth-callback'].forEach(endpoint => {
-      const filename = `/ecom/${endpoint}`
-      router.post(filename, require(`${routes}${filename}`)(appSdk))
-    })
+  // base routes for E-Com Plus Store API
+  ;['auth-callback'].forEach(endpoint => {
+    const filename = `/ecom/${endpoint}`
+    router.post(filename, require(`${routes}${filename}`)(appSdk))
+  })
 
   /**
    rotas do app
@@ -79,19 +78,17 @@ ecomAuth.then(appSdk => {
     if (req.url.startsWith('/api/')) {
       // get E-Com Plus Store ID from request header
       req.storeId = parseInt(req.get('x-store-id'), 10)
-      req.storeToken = req.get('x-store-token')
+      req.storeSecret = req.get('x-store-secret')
 
-      if (!req.storeId || !req.storeToken) {
+      if (!req.storeId || !req.storeSecret) {
         return res.status(406).send({
           status: 406,
-          message: 'Store id ou Store-token inválidos, acesse essa página via admin https://admin.e-com.plus'
+          message: 'É obrigatório informar x-store-id e x-store-secret, acesse essa página via admin https://admin.e-com.plus'
         })
       }
 
-      let appConfig
       try {
-        appConfig = await getAppConfig({ appSdk, storeId: req.storeId }, true)
-        req.appConfig = appConfig
+        req.appConfig = await getAppConfig({ appSdk, storeId: req.storeId }, true)
       } catch (error) {
         return res.status(500).send({
           status: 500,
@@ -99,23 +96,12 @@ ecomAuth.then(appSdk => {
         })
       }
 
-      if (appConfig.x_store_token !== req.storeToken) {
+      if (req.appConfig.store_secret !== req.storeSecret || req.storeSecret.length !== 32) {
         return res.status(401).send({
           status: 401,
-          message: 'X-Store-Token not match with app config.'
+          message: 'X-Store-Secret inválido.'
         })
       }
-
-      jwt.verify(req.storeToken, process.env.APPS_SECRET, function (err, decoded) {
-        const { auth } = decoded
-        if (err || req.storeId !== auth.storeId) {
-          return res.status(401).send({
-            status: 401,
-            message: 'StoreId not match with app config.',
-            err
-          })
-        }
-      })
     }
 
     // pass to the endpoint handler
