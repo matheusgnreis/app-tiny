@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/ecomclub/app-tiny/compare/v1.2.0...v1.3.0) (2020-08-04)
+
+
+### Features
+
+* **authenticate.js:** creates token based on applicationId and storeId ([53e2b87](https://github.com/ecomclub/app-tiny/commit/53e2b87bd4634a8a7aca845dfddc03e846087b16))
+
 ## [1.2.0](https://github.com/ecomclub/app-tiny/compare/v1.1.4...v1.2.0) (2020-08-04)
 
 
