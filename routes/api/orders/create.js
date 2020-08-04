@@ -1,10 +1,9 @@
 const parseStatus = require('./../../../lib/ecomplus/parse-orders-status')
 
-module.exports = ({ appSdk, ecomClient, getAppConfig, mysql }) => {
+module.exports = ({ appSdk, ecomClient, mysql }) => {
   return (req, res) => {
-    const storeId = parseInt(req.get('x-store-id'), 10)
-    const sessionToken = req.get('s-token')
     const body = req.body
+    const storeId = req.storeId
 
     if (!storeId || !sessionToken) {
       return res.status(406).send({
@@ -22,10 +21,7 @@ module.exports = ({ appSdk, ecomClient, getAppConfig, mysql }) => {
       })
     }
 
-    // valida token
-    return getAppConfig({ appSdk, storeId }, true).then(async appConfig => {
-      return appSdk.getAuth(storeId).then(auth => ({ auth, appConfig }))
-    }).then(({ auth, appConfig }) => {
+    return appSdk.getAuth(storeId).then(({ auth }) => {
       const promises = []
       for (let i = 0; i < body.length; i++) {
         const promise = mysql.fetchOrders(body[i], storeId).then(async row => {

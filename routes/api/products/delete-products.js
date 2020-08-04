@@ -1,16 +1,8 @@
 
-module.exports = ({ appSdk, ecomClient, getAppConfig, mysql }) => {
+module.exports = ({ mysql }) => {
   return async (req, res) => {
     const productId = req.params.id
-    const storeId = parseInt(req.get('x-store-id'), 10)
-    const sessionToken = req.get('s-token')
-
-    if (!storeId || !sessionToken) {
-      return res.status(406).send({
-        status: 406,
-        message: 'Store id ou token inválidos, acesse essa página via admin https://admin.e-com.plus'
-      })
-    }
+    const storeId = req.storeId
 
     if (!productId) {
       res.status(400).send({
