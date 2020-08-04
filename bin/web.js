@@ -19,11 +19,12 @@ const ecomClient = require('@ecomplus/client')
 const getAppConfig = require('./../lib/store-api/get-config')
 const mysql = require('./../lib/database')
 const tinyClient = require('./../lib/tiny/api-client')
+const jwt = require('jsonwebtoken')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   if (req.url.startsWith('/ecom/')) {
     // get E-Com Plus Store ID from request header
     req.storeId = parseInt(req.get('x-store-id'), 10)
@@ -72,6 +73,55 @@ ecomAuth.then(appSdk => {
   router.get('/api/products/:id', require('./../routes/api/products/find-products')(appParams))
   router.delete('/api/products/:id', require('./../routes/api/products/delete-products')(appParams))
   router.post('/api/orders/tiny', require('./../routes/api/orders/create')(appParams))
+  router.post('/authenticate', require('./../routes/api/authenticate')(appParams))
+
+  app.use(async (req, res, next) => {
+    if (req.url.startsWith('/api/')) {
+      // get E-Com Plus Store ID from request header
+      req.storeId = parseInt(req.get('x-store-id'), 10)
+      req.storeToken = req.get('x-store-token')
+
+      if (!req.storeId || !req.storeToken) {
+        return res.status(406).send({
+          status: 406,
+          message: 'Store id ou Store-token inválidos, acesse essa página via admin https://admin.e-com.plus'
+        })
+      }
+
+      let appConfig
+      try {
+        appConfig = await getAppConfig({ appSdk, storeId: req.storeId }, true)
+        req.appConfig = appConfig
+      } catch (error) {
+        return res.status(500).send({
+          status: 500,
+          message: 'Get appConfig error'
+        })
+      }
+
+      if (appConfig.x_store_token !== req.storeToken) {
+        return res.status(401).send({
+          status: 401,
+          message: 'X-Store-Token not match with app config.'
+        })
+      }
+
+      jwt.verify(req.storeToken, process.env.APPS_SECRET, function (err, decoded) {
+        const { auth } = decoded
+        if (err || req.storeId !== auth.storeId) {
+          return res.status(401).send({
+            status: 401,
+            message: 'StoreId not match with app config.',
+            err
+          })
+        }
+      })
+    }
+
+    // pass to the endpoint handler
+    // next Express middleware
+    next()
+  })
 
   router.post('/ecom/webhook', require('./../routes/ecom/webhook')(appParams))
   // add router and start web server
