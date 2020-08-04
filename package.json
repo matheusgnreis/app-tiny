@@ -6,20 +6,18 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "local": "ECOMCLIENT_NOTIMEOUT=true DB_NAME=tiny ECOM_AUTH_DB=/var/dbs/tiny.sqlite LOGGER_OUTPUT=/var/log/nodejs/tiny.out LOGGER_ERRORS=/var/log/nodejs/tiny.error LOGGER_FATAL_ERRORS=/var/log/nodejs/_stderr nodemon --inspect main.js",
+    "local": "APP_BASE_URI='https://apptiny.ngrok.io' APP_NAME='App Tiny' ECOMCLIENT_NOTIMEOUT=true DB_NAME=tiny ECOM_AUTH_DB=/var/dbs/tiny.sqlite LOGGER_OUTPUT=/var/log/nodejs/tiny.out LOGGER_ERRORS=/var/log/nodejs/tiny.error LOGGER_FATAL_ERRORS=/var/log/nodejs/_stderr nodemon --inspect main.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "standard-version",
     "publish:market": "node ./scripts/market-publication.js"
   },
   "dependencies": {
+    "@ecomplus/application-sdk": "^1.13.0",
     "@ecomplus/client": "^1.1.3",
     "@ecomplus/utils": "^1.1.0",
     "axios": "^0.19.0",
     "console-files": "2.x",
-    "ecomplus-app-sdk": "1.x",
-    "eventemitter3": "^4.0.0",
     "express": "4.x",
-    "moment": "^2.24.0",
     "mysql": "^2.17.1",
     "sqlite3": "^4.0.9"
   },
