@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ecomclub/app-tiny/compare/v1.1.4...v1.2.0) (2020-08-04)
+
+
+### Features
+
+* **create-variations.js:** create and link variation to a product ([38310a3](https://github.com/ecomclub/app-tiny/commit/38310a32771cc71d54cf066f598681ad2eac3c9a))
+* **new-pedido.js:** return new pedido model for tiny api ([e0b1948](https://github.com/ecomclub/app-tiny/commit/e0b194833b24ba97430c6d7bf264b6c1b488f705))
+* **new-product.js:** return new product schema for store-api ([5c2f094](https://github.com/ecomclub/app-tiny/commit/5c2f094a0a6ff9564b43d34409abe19cf67be114))
+* **new-produto.js:** return new produto model for tiny api ([75d1c88](https://github.com/ecomclub/app-tiny/commit/75d1c8801fb96b9d96f6de0b28191fec3d175346))
+* **orders-manager.js:** reproduces order changes at ecomplus ([0cd1e2a](https://github.com/ecomclub/app-tiny/commit/0cd1e2a531608134e4e6ac6a18c2e3ee2ec7918f))
+* **save-orders-db.js:** save orders from store-api in db ([41d19b5](https://github.com/ecomclub/app-tiny/commit/41d19b59321a4e05d99f18647adc444238c0d515))
+* **save-products-db.js:** save products from store-api in db ([912fc92](https://github.com/ecomclub/app-tiny/commit/912fc9263ed74ab3c749baf6edc343c98b52f33a))
+* **stock-manager.js:** updates product inventory at ecomplus ([35d6e04](https://github.com/ecomclub/app-tiny/commit/35d6e040133dc0452ccec5e82fc2fd3a649deab6))
+* **sync-orders-with-tiny:** sync orders saved in the database with tiny ([d305ae0](https://github.com/ecomclub/app-tiny/commit/d305ae0a0df740a1a4cc6355c65f359f3399f9a2))
+* tiny api-client ([d507e36](https://github.com/ecomclub/app-tiny/commit/d507e36f0210f98e55fbfc01b8ef81c5d4c8e46a))
+* **sync-products-with-tiny:** sync products saved in the db with tiny ([1e01163](https://github.com/ecomclub/app-tiny/commit/1e01163799ee2d77c5a54aeb6e24193bbf2a50af))
+* **webhook:** handling triggers from ecomplus ([18dbc5d](https://github.com/ecomclub/app-tiny/commit/18dbc5da859d6c6139030d76facaddcb1202c6f3))
+
 ### [1.1.4](https://github.com/ecomclub/app-tiny/compare/v1.1.3...v1.1.4) (2020-04-15)
 
 
