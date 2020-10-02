@@ -30,8 +30,8 @@
     "enabled_sync_others_status": {
       "schema": {
         "type": "boolean",
-        "title": "Sincronizar todos os status (pedidos)",
-        "description": "Sincronizar pedidos com status diferente de pago",
+        "title": "Sincronizar todos os pedidos?",
+        "description": "Por padrão, apenas os pedidos com status de pago serão enviados automáticamente para o ERP. Para enviar os pedidos com status diferente de pago ativa essa opção.",
         "default": false
       },
       "hide": false
