@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.3](https://github.com/ecomclub/app-tiny/compare/v1.3.2...v1.3.3) (2020-10-05)
+
+
+### Bug Fixes
+
+* **create-variations.js:** removing blank space from specifications ([eea5299](https://github.com/ecomclub/app-tiny/commit/eea529902ef2290085dcff89891bbcc4c62fbbeb))
+* **new-product.js:** create product with slug, body_html and quantity ([460f194](https://github.com/ecomclub/app-tiny/commit/460f194969f61f5cfb9fcac926b031b21b5fe0c5))
+* **new-product.js:** returning array of brands ([e799b0d](https://github.com/ecomclub/app-tiny/commit/e799b0d17d7888f0ff9b7befb29d9cba14d8050f))
+* **save-orders-db.js:** sync orders with status other than paid [#18](https://github.com/ecomclub/app-tiny/issues/18) ([709344f](https://github.com/ecomclub/app-tiny/commit/709344fa5dd3c8877ccb890136e8b94249e98034))
+* preventing wrong status change ([15f7c68](https://github.com/ecomclub/app-tiny/commit/15f7c6817505d79b3879535f14df47524e41c4e7))
+
 ### [1.3.2](https://github.com/ecomclub/app-tiny/compare/v1.3.1...v1.3.2) (2020-08-04)
 
 ### [1.3.1](https://github.com/ecomclub/app-tiny/compare/v1.3.0...v1.3.1) (2020-08-04)
