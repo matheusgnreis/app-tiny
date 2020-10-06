@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/ecomclub/app-tiny/compare/v1.3.3...v1.4.0) (2020-10-06)
+
+
+### Features
+
+* **application.json/admin_settings:** add prop remove_valor_frete ([4857b49](https://github.com/ecomclub/app-tiny/commit/4857b49e18d4a9e4bf0a5b0f96732d7217e0a171))
+
+
+### Bug Fixes
+
+* email, valor_frete, item.valor_unitario, forma_envio ([945f01f](https://github.com/ecomclub/app-tiny/commit/945f01f4e565e495a2d1ee4ea0f33f1bf0596532))
+* preventing error with request to long ([14fc9bf](https://github.com/ecomclub/app-tiny/commit/14fc9bf7f8fd01ea63c341bc93853da9fd5c48a4))
+
 ### [1.3.3](https://github.com/ecomclub/app-tiny/compare/v1.3.2...v1.3.3) (2020-10-05)
 
 
