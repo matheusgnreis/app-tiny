@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/ecomclub/app-tiny/compare/v1.4.2...v1.4.3) (2020-10-06)
+
+
+### Bug Fixes
+
+* preventing error with carrier undefined ([6f1c1f4](https://github.com/ecomclub/app-tiny/commit/6f1c1f46af7ed6db627efcabf2858b9c2ddf5528))
+
 ### [1.4.2](https://github.com/ecomclub/app-tiny/compare/v1.4.1...v1.4.2) (2020-10-06)
 
 
