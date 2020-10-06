@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.2](https://github.com/ecomclub/app-tiny/compare/v1.4.1...v1.4.2) (2020-10-06)
+
+
+### Bug Fixes
+
+* **new-pedido.js:** using buyers.main_email ([59b9fd3](https://github.com/ecomclub/app-tiny/commit/59b9fd34dbb4fe9aaa98e4bafc61c576788e8747))
+
 ### [1.4.1](https://github.com/ecomclub/app-tiny/compare/v1.4.0...v1.4.1) (2020-10-06)
 
 ## [1.4.0](https://github.com/ecomclub/app-tiny/compare/v1.3.3...v1.4.0) (2020-10-06)
