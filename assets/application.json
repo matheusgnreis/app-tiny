@@ -36,6 +36,15 @@
       },
       "hide": false
     },
+    "remove_valor_frete": {
+      "schema": {
+        "type": "boolean",
+        "title": "Remover valor do frete dos pedidos",
+        "description": "Por padrão o valor total do frete é enviado junto ao pedido para o ERP. Habilitando a opção o valor será enviado como 0,00.",
+        "default": false
+      },
+      "hide": false
+    },
     "sync": {
       "schema": {
         "type": "object",
