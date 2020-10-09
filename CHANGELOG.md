@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.10](https://github.com/ecomclub/app-tiny/compare/v1.4.9...v1.4.10) (2020-10-09)
+
+
+### Bug Fixes
+
+* **orders-manager.js:** prev errors when there is no financial_status ([6f37982](https://github.com/ecomclub/app-tiny/commit/6f379824e42acd61850b7dec21acea3cc1a8f41f))
+
 ### [1.4.9](https://github.com/ecomclub/app-tiny/compare/v1.4.8...v1.4.9) (2020-10-09)
 
 ### [1.4.8](https://github.com/ecomclub/app-tiny/compare/v1.4.7...v1.4.8) (2020-10-09)
