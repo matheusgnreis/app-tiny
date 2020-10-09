@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.7](https://github.com/ecomclub/app-tiny/compare/v1.4.6...v1.4.7) (2020-10-09)
+
+
+### Bug Fixes
+
+* store-api update invoice and tracking_codes ([422f5af](https://github.com/ecomclub/app-tiny/commit/422f5af3f1f9dd5573e6004b2e7d8808d9da5e2b))
+
 ### [1.4.6](https://github.com/ecomclub/app-tiny/compare/v1.4.5...v1.4.6) (2020-10-09)
 
 ### [1.4.5](https://github.com/ecomclub/app-tiny/compare/v1.4.4...v1.4.5) (2020-10-08)
