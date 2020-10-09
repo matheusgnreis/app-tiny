@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.8](https://github.com/ecomclub/app-tiny/compare/v1.4.7...v1.4.8) (2020-10-09)
+
+
+### Bug Fixes
+
+* **orders-manager.js:** tag name ([e6f07b8](https://github.com/ecomclub/app-tiny/commit/e6f07b80ab3a1d4f99a6f2768455ce2370dabf8c))
+
 ### [1.4.7](https://github.com/ecomclub/app-tiny/compare/v1.4.6...v1.4.7) (2020-10-09)
 
 
