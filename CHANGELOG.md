@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.13](https://github.com/ecomclub/app-tiny/compare/v1.4.12...v1.4.13) (2020-10-09)
+
+### [1.4.12](https://github.com/ecomclub/app-tiny/compare/v1.4.11...v1.4.12) (2020-10-09)
+
+### [1.4.11](https://github.com/ecomclub/app-tiny/compare/v1.4.10...v1.4.11) (2020-10-09)
+
+### [1.4.10](https://github.com/ecomclub/app-tiny/compare/v1.4.9...v1.4.10) (2020-10-09)
+
+
+### Bug Fixes
+
+* **orders-manager.js:** prev errors when there is no financial_status ([6f37982](https://github.com/ecomclub/app-tiny/commit/6f379824e42acd61850b7dec21acea3cc1a8f41f))
+
+### [1.4.9](https://github.com/ecomclub/app-tiny/compare/v1.4.8...v1.4.9) (2020-10-09)
+
+### [1.4.8](https://github.com/ecomclub/app-tiny/compare/v1.4.7...v1.4.8) (2020-10-09)
+
+
+### Bug Fixes
+
+* **orders-manager.js:** tag name ([e6f07b8](https://github.com/ecomclub/app-tiny/commit/e6f07b80ab3a1d4f99a6f2768455ce2370dabf8c))
+
+### [1.4.7](https://github.com/ecomclub/app-tiny/compare/v1.4.6...v1.4.7) (2020-10-09)
+
+
+### Bug Fixes
+
+* store-api update invoice and tracking_codes ([422f5af](https://github.com/ecomclub/app-tiny/commit/422f5af3f1f9dd5573e6004b2e7d8808d9da5e2b))
+
 ### [1.4.6](https://github.com/ecomclub/app-tiny/compare/v1.4.5...v1.4.6) (2020-10-09)
 
 ### [1.4.5](https://github.com/ecomclub/app-tiny/compare/v1.4.4...v1.4.5) (2020-10-08)
